@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> SARAF Controle patrimonial - Dashboard Executivo</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+  font-family: 'Inter', sans-serif; 
+  background: #fafbfc; 
+  color: #2c3e50; 
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.container { max-width: 1600px; margin: 0 auto; padding: 0; }
+
+/* HEADER */
+.header {
+  background: #ffffff;
+  border-bottom: 1px solid #e1e8ed;
+  padding: 0;
+}
+
+.header-top {
+  background: linear-gradient(90deg, #0e7490 0%, #22c55e 100%);
+  height: 4px;
+}
+
+.header-content {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 48px;
+  align-items: center;
+  padding: 32px 48px;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.company-logo {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+.logo-divider {
+  width: 1px;
+  height: 40px;
+  background: #e1e8ed;
+}
+
+.saraf-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.title-section {
+  text-align: left;
+}
+
+.main-title {
+  font-size: 28px;
+  font-weight: 200;
+  color: #1a202c;
+  margin-bottom: 4px;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #718096;
+  font-weight: 300;
+  letter-spacing: 0.25px;
+}
+
+.info-section {
+  text-align: right;
+  font-size: 13px;
+  color: #718096;
+  line-height: 1.6;
+}
+
+.info-label {
+  font-weight: 400;
+  color: #4a5568;
+}
+
+/* STATS OVERVIEW */
+.stats-overview {
+  background: #ffffff;
+  border-bottom: 1px solid #e1e8ed;
+  padding: 24px 48px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 20px 0;
+  position: relative;
+}
+
+.stat-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 20%;
+  height: 60%;
+  width: 1px;
+  background: #e1e8ed;
+}
+
+.stat-number {
+  font-size: 36px;
+  font-weight: 200;
+  color: #1a202c;
+  margin-bottom: 6px;
+  letter-spacing: -1px;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #718096;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.stat-progress {
+  width: 60px;
+  height: 2px;
+  background: #e1e8ed;
+  margin: 12px auto 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #0e7490 0%, #22c55e 100%);
+  transition: width 2s ease;
+}
+
+/* MAIN CONTENT */
+.main-content {
+  background: #ffffff;
+  padding: 48px;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 48px;
+  margin-bottom: 48px;
+}
+
+/* CHART CONTAINERS */
+.chart-section {
+  background: #ffffff;
+  border: 1px solid #e1e8ed;
+}
+
+.chart-header {
+  padding: 24px 28px;
+  border-bottom: 1px solid #e1e8ed;
+  background: #fafbfc;
+}
+
+.chart-title {
+  font-size: 16px;
+  font-weight: 400;
+  color: #1a202c;
+  margin-bottom: 4px;
+}
+
+.chart-subtitle {
+  font-size: 12px;
+  color: #718096;
+  font-weight: 300;
+}
+
+.chart-body {
+  padding: 32px 28px;
+  height: 400px;
+}
+
+.chart-canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* TEAM SECTION */
+.team-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+.team-card {
+  background: #ffffff;
+  border: 1px solid #e1e8ed;
+}
+
+.team-header {
+  padding: 24px 28px;
+  border-bottom: 1px solid #e1e8ed;
+  background: #fafbfc;
+}
+
+.team-title {
+  font-size: 16px;
+  font-weight: 400;
+  color: #1a202c;
+}
+
+.team-body {
+  padding: 0;
+}
+
+.team-member {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 20px;
+  align-items: center;
+  padding: 24px 28px;
+  border-bottom: 1px solid #f7fafc;
+  transition: background 0.2s ease;
+}
+
+.team-member:hover {
+  background: #fafbfc;
+}
+
+.team-member:last-child {
+  border-bottom: none;
+}
+
+.member-avatar {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 300;
+  color: white;
+}
+
+.member-avatar.oscar { background: #22c55e; }
+.member-avatar.jessica { background: #0e7490; }
+
+.member-info {
+  min-width: 0;
+}
+
+.member-name {
+  font-size: 15px;
+  font-weight: 400;
+  color: #1a202c;
+  margin-bottom: 2px;
+}
+
+.member-role {
+  font-size: 12px;
+  color: #718096;
+  font-weight: 300;
+}
+
+.member-progress-container {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.member-progress-bar {
+  width: 100%;
+  height: 2px;
+  background: #e1e8ed;
+  overflow: hidden;
+}
+
+.member-progress-fill {
+  height: 100%;
+  transition: width 2s ease;
+}
+
+.member-progress-fill.oscar { background: #22c55e; }
+.member-progress-fill.jessica { background: #0e7490; }
+
+.member-stats {
+  text-align: right;
+}
+
+.member-count {
+  font-size: 20px;
+  font-weight: 300;
+  color: #1a202c;
+  margin-bottom: 2px;
+}
+
+.member-rate {
+  font-size: 11px;
+  color: #22c55e;
+  font-weight: 400;
+}
+
+/* CALENDAR */
+.calendar-container {
+  background: #ffffff;
+  border: 1px solid #e1e8ed;
+}
+
+.calendar-header {
+  padding: 24px 28px;
+  border-bottom: 1px solid #e1e8ed;
+  background: #fafbfc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.calendar-title {
+  font-size: 16px;
+  font-weight: 400;
+  color: #1a202c;
+}
+
+.calendar-month {
+  font-size: 12px;
+  color: #718096;
+  font-weight: 300;
+}
+
+.calendar-body {
+  padding: 24px 28px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  background: #e1e8ed;
+  border: 1px solid #e1e8ed;
+}
+
+.calendar-day-header {
+  background: #fafbfc;
+  padding: 12px 0;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 500;
+  color: #718096;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.calendar-day {
+  background: #ffffff;
+  padding: 12px 0;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 300;
+  color: #4a5568;
+  transition: all 0.2s ease;
+}
+
+.calendar-day.work-day {
+  background: #0e7490;
+  color: #ffffff;
+  font-weight: 400;
+}
+
+.calendar-day.today {
+  background: #22c55e;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.calendar-day.weekend {
+  background: #f7fafc;
+  color: #a0aec0;
+}
+
+/* FOOTER */
+.footer {
+  background: #fafbfc;
+  border-top: 1px solid #e1e8ed;
+  padding: 24px 48px;
+  text-align: center;
+}
+
+.footer-text {
+  font-size: 12px;
+  color: #718096;
+  font-weight: 300;
+}
+
+/* RESPONSIVE */
+@media(max-width: 1200px) {
+  .header-content { grid-template-columns: 1fr; gap: 24px; text-align: center; }
+  .content-grid { grid-template-columns: 1fr; }
+  .team-section { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media(max-width: 768px) {
+  .main-content, .header-content, .stats-overview { padding: 24px; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .stat-item::after { display: none; }
+  .main-title { font-size: 24px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-top"></div>
+    <div class="header-content">
+      <div class="logo-section">
+        <img src="https://i.postimg.cc/sx49w2S2/LOGO.png" alt="LD Logo" class="company-logo">
+        <div class="logo-divider"></div>
+        <img src="https://i.postimg.cc/HnxtxgRv/SARAF.png" alt="SARAF Logo" class="saraf-logo">
+      </div>
+      <div class="title-section">
+        <h1 class="main-title">LD CELULOSE</h1>
+        <p class="subtitle">Levantamento Físico de Ativos Imobilizados</p>
+      </div>
+      <div class="info-section">
+        <div><span class="info-label">Responsável:</span> Suzanne Silva</div>
+        <div><span class="info-label">Atualizado:</span> 25/08/2025</div>
+        <div><span class="info-label">Status:</span> Em Andamento</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- STATS OVERVIEW -->
+  <section class="stats-overview">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-number">1.168</div>
+        <div class="stat-label">Total de Ativos</div>
+        <div class="stat-progress">
+          <div class="stat-progress-fill" style="width: 100%;"></div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">559</div>
+        <div class="stat-label">Coletados</div>
+        <div class="stat-progress">
+          <div class="stat-progress-fill" style="width: 47.9%;"></div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">609</div>
+        <div class="stat-label">Pendentes</div>
+        <div class="stat-progress">
+          <div class="stat-progress-fill" style="width: 52.1%;"></div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">47.9%</div>
+        <div class="stat-label">Progresso</div>
+        <div class="stat-progress">
+          <div class="stat-progress-fill" style="width: 47.9%;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <!-- CHARTS -->
+    <div class="content-grid">
+      <div class="chart-section">
+        <div class="chart-header">
+          <div class="chart-title">Evolução do Levantamento</div>
+          <div class="chart-subtitle">Progresso acumulado por técnico - Agosto 2025</div>
+        </div>
+        <div class="chart-body">
+          <canvas id="lineChart" class="chart-canvas"></canvas>
+        </div>
+      </div>
+      <div class="chart-section">
+        <div class="chart-header">
+          <div class="chart-title">Performance Individual</div>
+          <div class="chart-subtitle">Total coletado vs meta estabelecida</div>
+        </div>
+        <div class="chart-body">
+          <canvas id="barChart" class="chart-canvas"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEAM & CALENDAR -->
+    <div class="team-section">
+      <div class="team-card">
+        <div class="team-header">
+          <div class="team-title">Equipe Técnica</div>
+        </div>
+        <div class="team-body">
+          <div class="team-member">
+            <div class="member-avatar oscar">OS</div>
+            <div class="member-info">
+              <div class="member-name">Oscar Silva</div>
+              <div class="member-role">Técnico Especialista</div>
+              <div class="member-progress-container">
+                <div class="member-progress-bar">
+                  <div class="member-progress-fill oscar" style="width: 73.3%;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="member-stats">
+              <div class="member-count">410</div>
+              <div class="member-rate">19.5 por dia</div>
+            </div>
+          </div>
+          <div class="team-member">
+            <div class="member-avatar jessica">JS</div>
+            <div class="member-info">
+              <div class="member-name">Jessica Santos</div>
+              <div class="member-role">Técnica Especialista</div>
+              <div class="member-progress-container">
+                <div class="member-progress-bar">
+                  <div class="member-progress-fill jessica" style="width: 26.7%;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="member-stats">
+              <div class="member-count">149</div>
+              <div class="member-rate">7.1 por dia</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="calendar-container">
+        <div class="calendar-header">
+          <div class="calendar-title">Cronograma de Trabalho</div>
+          <div class="calendar-month">Agosto 2025</div>
+        </div>
+        <div class="calendar-body">
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-text">© 2025 SARAF Solutions - Gestão Inteligente de Ativos Empresariais</div>
+  </footer>
+</div>
+
+<script>
+// Calendar Generation
+const calendarGrid = document.getElementById('calendarGrid');
+const dayHeaders = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB'];
+dayHeaders.forEach(day => {
+  const div = document.createElement('div');
+  div.className = 'calendar-day-header';
+  div.textContent = day;
+  calendarGrid.appendChild(div);
+});
+
+const totalDays = 31;
+const startDay = 5; // Agosto 2025 starts on Friday
+for(let i = 1; i < startDay; i++) {
+  const div = document.createElement('div');
+  div.className = 'calendar-day weekend';
+  calendarGrid.appendChild(div);
+}
+
+for(let d = 1; d <= totalDays; d++) {
+  const div = document.createElement('div');
+  div.textContent = d;
+  div.className = 'calendar-day';
+  
+  const dayIndex = (d + startDay - 2) % 7;
+  if(dayIndex === 0 || dayIndex === 6) {
+    div.className += ' weekend';
+  } else if(d === 25) {
+    div.className += ' today';
+  } else {
+    div.className += ' work-day';
+  }
+  calendarGrid.appendChild(div);
+}
+
+// Chart Data
+const oscarData = [38,18,27,37,13,0,0,28,55,11,14,40,0,0,0,99,0,30,0,0,0,0,0,0,0,0,0,0,0,0,0];
+const jessicaData = [0,0,0,0,0,0,0,0,0,3,10,37,0,0,41,42,7,8,1,0,0,0,0,0,0,0,0,0,0,0,0];
+
+let oscarCumulative = [], jessicaCumulative = [], totalCumulative = [], targetCumulative = [];
+let oSum = 0, jSum = 0, tSum = 0;
+
+for(let i = 0; i < 31; i++) {
+  oSum += oscarData[i] || 0;
+  jSum += jessicaData[i] || 0;
+  tSum += 60;
+  oscarCumulative.push(oSum);
+  jessicaCumulative.push(jSum);
+  totalCumulative.push(oSum + jSum);
+  targetCumulative.push(tSum);
+}
+
+const labels = Array.from({length: 31}, (_, i) => `${i+1}`);
+
+// Line Chart
+const ctx1 = document.getElementById('lineChart').getContext('2d');
+new Chart(ctx1, {
+  type: 'line',
+  data: {
+    labels: labels,
+    datasets: [
+      {
+        label: 'Total Acumulado',
+        data: totalCumulative,
+        borderColor: '#1a202c',
+        backgroundColor: 'rgba(26,32,44,0.05)',
+        fill: true,
+        tension: 0.1,
+        pointRadius: 0,
+        pointHoverRadius: 4,
+        borderWidth: 2
+      },
+      {
+        label: 'Oscar',
+        data: oscarCumulative,
+        borderColor: '#22c55e',
+        backgroundColor: 'transparent',
+        fill: false,
+        tension: 0.1,
+        pointRadius: 0,
+        pointHoverRadius: 4,
+        borderWidth: 1.5
+      },
+      {
+        label: 'Jessica',
+        data: jessicaCumulative,
+        borderColor: '#0e7490',
+        backgroundColor: 'transparent',
+        fill: false,
+        tension: 0.1,
+        pointRadius: 0,
+        pointHoverRadius: 4,
+        borderWidth: 1.5
+      },
+      {
+        label: 'Meta (60/dia)',
+        data: targetCumulative,
+        borderColor: '#a0aec0',
+        backgroundColor: 'transparent',
+        fill: false,
+        tension: 0,
+        borderDash: [4, 4],
+        pointRadius: 0,
+        pointHoverRadius: 3,
+        borderWidth: 1
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'top',
+        align: 'end',
+        labels: {
+          usePointStyle: false,
+          boxWidth: 12,
+          boxHeight: 2,
+          padding: 20,
+          font: { size: 12, weight: '300' },
+          color: '#718096'
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { display: false },
+        border: { display: false },
+        ticks: { 
+          font: { size: 11, weight: '300' },
+          color: '#a0aec0',
+          maxTicksLimit: 15
+        }
+      },
+      y: {
+        beginAtZero: true,
+        grid: { 
+          color: '#f7fafc',
+          lineWidth: 1
+        },
+        border: { display: false },
+        ticks: { 
+          font: { size: 11, weight: '300' },
+          color: '#a0aec0'
+        }
+      }
+    },
+    interaction: {
+      intersect: false,
+      mode: 'index'
+    }
+  }
+});
+
+// Bar Chart
+const ctx2 = document.getElementById('barChart').getContext('2d');
+new Chart(ctx2, {
+  type: 'bar',
+  data: {
+    labels: ['Oscar', 'Jessica'],
+    datasets: [
+      {
+        label: 'Coletado',
+        data: [410, 149],
+        backgroundColor: ['#22c55e', '#0e7490'],
+        borderWidth: 0,
+        barThickness: 40
+      },
+      {
+        label: 'Meta (584)',
+        data: [584, 584],
+        type: 'line',
+        borderColor: '#e53e3e',
+        borderWidth: 1.5,
+        fill: false,
+        pointBackgroundColor: '#e53e3e',
+        pointBorderWidth: 0,
+        pointRadius: 3,
+        tension: 0
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'top',
+        align: 'end',
+        labels: {
+          usePointStyle: false,
+          boxWidth: 12,
+          boxHeight: 12,
+          padding: 20,
+          font: { size: 12, weight: '300' },
+          color: '#718096'
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { display: false },
+        border: { display: false },
+        ticks: { 
+          font: { size: 12, weight: '400' },
+          color: '#4a5568'
+        }
+      },
+      y: {
+        beginAtZero: true,
+        max: 650,
+        grid: { 
+          color: '#f7fafc',
+          lineWidth: 1
+        },
+        border: { display: false },
+        ticks: { 
+          font: { size: 11, weight: '300' },
+          color: '#a0aec0'
+        }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>
