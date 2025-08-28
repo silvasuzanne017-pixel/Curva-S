@@ -1,0 +1,490 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&display=swap');
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body { 
+    font-family: 'Inter', sans-serif; 
+    background: #fafbfc; 
+    color: #2c3e50; 
+    font-weight: 300;
+    line-height: 1.5;
+}
+
+.container { 
+    max-width: 1600px; 
+    margin: 0 auto; 
+    padding: 0; 
+}
+
+/* HEADER */
+.header {
+    background: #ffffff;
+    border-bottom: 1px solid #e1e8ed;
+    padding: 0;
+}
+
+.header-top {
+    background: linear-gradient(90deg, #0e7490 0%, #22c55e 100%);
+    height: 4px;
+}
+
+.header-content {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 48px;
+    align-items: center;
+    padding: 32px 48px;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.company-logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.logo-divider {
+    width: 1px;
+    height: 40px;
+    background: #e1e8ed;
+}
+
+.saraf-logo {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+}
+
+.title-section {
+    text-align: left;
+}
+
+.main-title {
+    font-size: 28px;
+    font-weight: 200;
+    color: #1a202c;
+    margin-bottom: 4px;
+    letter-spacing: -0.5px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #718096;
+    font-weight: 300;
+    letter-spacing: 0.25px;
+}
+
+.info-section {
+    text-align: right;
+    font-size: 13px;
+    color: #718096;
+    line-height: 1.6;
+}
+
+.info-label {
+    font-weight: 400;
+    color: #4a5568;
+}
+
+/* LOADING STATE */
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    color: #718096;
+    font-size: 14px;
+}
+
+.loading::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border: 2px solid #e1e8ed;
+    border-top: 2px solid #0e7490;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* STATS OVERVIEW */
+.stats-overview {
+    background: #ffffff;
+    border-bottom: 1px solid #e1e8ed;
+    padding: 24px 48px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+}
+
+.stat-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 20%;
+    height: 60%;
+    width: 1px;
+    background: #e1e8ed;
+}
+
+.stat-number {
+    font-size: 36px;
+    font-weight: 200;
+    color: #1a202c;
+    margin-bottom: 6px;
+    letter-spacing: -1px;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #718096;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat-progress {
+    width: 60px;
+    height: 2px;
+    background: #e1e8ed;
+    margin: 12px auto 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #0e7490 0%, #22c55e 100%);
+    transition: width 2s ease;
+}
+
+/* MAIN CONTENT */
+.main-content {
+    background: #ffffff;
+    padding: 48px;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+}
+
+/* CHART CONTAINERS */
+.chart-section {
+    background: #ffffff;
+    border: 1px solid #e1e8ed;
+}
+
+.chart-header {
+    padding: 24px 28px;
+    border-bottom: 1px solid #e1e8ed;
+    background: #fafbfc;
+}
+
+.chart-title {
+    font-size: 16px;
+    font-weight: 400;
+    color: #1a202c;
+    margin-bottom: 4px;
+}
+
+.chart-subtitle {
+    font-size: 12px;
+    color: #718096;
+    font-weight: 300;
+}
+
+.chart-body {
+    padding: 32px 28px;
+    height: 400px;
+    position: relative;
+}
+
+.chart-canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* TEAM SECTION */
+.team-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+}
+
+.team-card {
+    background: #ffffff;
+    border: 1px solid #e1e8ed;
+}
+
+.team-header {
+    padding: 24px 28px;
+    border-bottom: 1px solid #e1e8ed;
+    background: #fafbfc;
+}
+
+.team-title {
+    font-size: 16px;
+    font-weight: 400;
+    color: #1a202c;
+}
+
+.team-body {
+    padding: 0;
+}
+
+.team-member {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 20px;
+    align-items: center;
+    padding: 24px 28px;
+    border-bottom: 1px solid #f7fafc;
+    transition: background 0.2s ease;
+}
+
+.team-member:hover {
+    background: #fafbfc;
+}
+
+.team-member:last-child {
+    border-bottom: none;
+}
+
+.member-avatar {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 300;
+    color: white;
+    border-radius: 50%;
+}
+
+.member-avatar.oscar { 
+    background: #22c55e; 
+}
+
+.member-avatar.jessica { 
+    background: #0e7490; 
+}
+
+.member-info {
+    min-width: 0;
+}
+
+.member-name {
+    font-size: 15px;
+    font-weight: 400;
+    color: #1a202c;
+    margin-bottom: 2px;
+}
+
+.member-role {
+    font-size: 12px;
+    color: #718096;
+    font-weight: 300;
+}
+
+.member-progress-container {
+    width: 100%;
+    margin-top: 8px;
+}
+
+.member-progress-bar {
+    width: 100%;
+    height: 2px;
+    background: #e1e8ed;
+    overflow: hidden;
+    border-radius: 1px;
+}
+
+.member-progress-fill {
+    height: 100%;
+    transition: width 2s ease;
+    border-radius: 1px;
+}
+
+.member-progress-fill.oscar { 
+    background: #22c55e; 
+}
+
+.member-progress-fill.jessica { 
+    background: #0e7490; 
+}
+
+.member-stats {
+    text-align: right;
+}
+
+.member-count {
+    font-size: 20px;
+    font-weight: 300;
+    color: #1a202c;
+    margin-bottom: 2px;
+}
+
+.member-rate {
+    font-size: 11px;
+    color: #22c55e;
+    font-weight: 400;
+}
+
+/* CALENDAR */
+.calendar-container {
+    background: #ffffff;
+    border: 1px solid #e1e8ed;
+}
+
+.calendar-header {
+    padding: 24px 28px;
+    border-bottom: 1px solid #e1e8ed;
+    background: #fafbfc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.calendar-title {
+    font-size: 16px;
+    font-weight: 400;
+    color: #1a202c;
+}
+
+.calendar-month {
+    font-size: 12px;
+    color: #718096;
+    font-weight: 300;
+}
+
+.calendar-body {
+    padding: 24px 28px;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    background: #e1e8ed;
+    border: 1px solid #e1e8ed;
+}
+
+.calendar-day-header {
+    background: #fafbfc;
+    padding: 12px 0;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 500;
+    color: #718096;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.calendar-day {
+    background: #ffffff;
+    padding: 12px 0;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 300;
+    color: #4a5568;
+    transition: all 0.2s ease;
+}
+
+.calendar-day.empty {
+    background: transparent;
+    box-shadow: none;
+    pointer-events: none;
+}
+
+.calendar-day.work-day {
+    background: #0e7490;
+    color: #ffffff;
+    font-weight: 400;
+}
+
+.calendar-day.today {
+    background: #22c55e;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.calendar-day.weekend {
+    background: #f7fafc;
+    color: #a0aec0;
+}
+
+/* FOOTER */
+.footer {
+    background: #fafbfc;
+    border-top: 1px solid #e1e8ed;
+    padding: 24px 48px;
+    text-align: center;
+}
+
+.footer-text {
+    font-size: 12px;
+    color: #718096;
+    font-weight: 300;
+}
+
+/* RESPONSIVE */
+@media(max-width: 1200px) {
+    .header-content { 
+        grid-template-columns: 1fr; 
+        gap: 24px; 
+        text-align: center; 
+    }
+    .content-grid { 
+        grid-template-columns: 1fr; 
+    }
+    .team-section { 
+        grid-template-columns: 1fr; 
+    }
+    .stats-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+    }
+}
+
+@media(max-width: 768px) {
+    .main-content, 
+    .header-content, 
+    .stats-overview { 
+        padding: 24px; 
+    }
+    .stats-grid { 
+        grid-template-columns: 1fr; 
+    }
+    .stat-item::after { 
+        display: none; 
+    }
+    .main-title { 
+        font-size: 24px; 
+    }
+}
