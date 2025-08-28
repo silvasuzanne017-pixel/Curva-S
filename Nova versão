@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SARAF Controle patrimonial - Dashboard </title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<div class="container">
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-top"></div>
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="assets/images/LOGO.png" alt="LD Logo" class="company-logo">
+                <div class="logo-divider"></div>
+                <img src="assets/images/SARAF.png" alt="SARAF Logo" class="saraf-logo">
+            </div>
+            <div class="title-section">
+                <h1 class="main-title">LD CELULOSE</h1>
+                <p class="subtitle">Levantamento Físico de Ativos Imobilizados</p>
+            </div>
+            <div class="info-section">
+                <div><span class="info-label">Responsável:</span> Suzanne Silva</div>
+                <div><span class="info-label">Atualizado:</span> <span id="lastUpdate">Carregando...</span></div>
+                <div><span class="info-label">Status:</span> Em Andamento</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- STATS OVERVIEW -->
+    <section class="stats-overview">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number" id="totalAtivos">1.168</div>
+                <div class="stat-label">Total de Ativos</div>
+                <div class="stat-progress">
+                    <div class="stat-progress-fill" style="width: 100%;"></div>
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="coletados">-</div>
+                <div class="stat-label">Coletados</div>
+                <div class="stat-progress">
+                    <div class="stat-progress-fill" id="coletadosProgress" style="width: 0%;"></div>
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="pendentes">-</div>
+                <div class="stat-label">Pendentes</div>
+                <div class="stat-progress">
+                    <div class="stat-progress-fill" id="pendentesProgress" style="width: 0%;"></div>
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="progresso">-</div>
+                <div class="stat-label">Progresso</div>
+                <div class="stat-progress">
+                    <div class="stat-progress-fill" id="progressoProgress" style="width: 0%;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- CHARTS -->
+        <div class="content-grid">
+            <div class="chart-section">
+                <div class="chart-header">
+                    <div class="chart-title">Evolução do Levantamento</div>
+                    <div class="chart-subtitle">Progresso acumulado por técnico - Agosto 2025</div>
+                </div>
+                <div class="chart-body">
+                    <div class="loading" id="loadingLine">Carregando dados...</div>
+                    <canvas id="lineChart" class="chart-canvas" style="display: none;"></canvas>
+                </div>
+            </div>
+            <div class="chart-section">
+                <div class="chart-header">
+                    <div class="chart-title">Performance Individual</div>
+                    <div class="chart-subtitle">Total coletado vs meta estabelecida</div>
+                </div>
+                <div class="chart-body">
+                    <div class="loading" id="loadingBar">Carregando dados...</div>
+                    <canvas id="barChart" class="chart-canvas" style="display: none;"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- TEAM & CALENDAR -->
+        <div class="team-section">
+            <div class="team-card">
+                <div class="team-header">
+                    <div class="team-title">Equipe Técnica</div>
+                </div>
+                <div class="team-body" id="teamMembers">
+                    <div class="loading">Carregando equipe...</div>
+                </div>
+            </div>
+
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <div class="calendar-title">Cronograma de Trabalho</div>
+                    <div class="calendar-month">Agosto 2025</div>
+                </div>
+                <div class="calendar-body">
+                    <div class="calendar-grid" id="calendarGrid"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-text">© 2025 SARAF Solutions - Gestão Inteligente de Ativos Empresariais</div>
+    </footer>
+</div>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
